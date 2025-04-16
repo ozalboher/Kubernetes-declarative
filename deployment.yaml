@@ -1,0 +1,21 @@
+apiVersion: apps/v1 # specifies the API version of the Kubernetes resource
+kind: Deployment # specifies the kind of resource
+metadata:
+  name: second-app-deployment # name of the deployment 
+spec: # specification of the deployment
+  replicas: 1 # number of replicas to run
+  selector: # This is crucial for the deployment object to know which pods to manage
+    matchLabels: # labels to match the pods(should be exactly the same as the labels in the pod template)
+      app: second-app 
+      tier: backend 
+  template: # template for the *pod*
+    metadata:
+      labels: # You can have multiple labels for the pod.
+        app: second-app # label for the pod
+        tier: backend # another label for the pod(optional)
+    spec: # specification for the individual pod to be created.
+      containers: # list of *containers* to run in the *pod*
+        - name: second-node # name of the container
+          image: ozalboher/kube-first-app # image to use for the container
+          ports:
+            - containerPort: 8080 # port on which the container will listen
