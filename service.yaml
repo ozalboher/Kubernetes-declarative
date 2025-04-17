@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend # name of the service
+spec:
+  selector:
+    app: second-app # label to select the pods to route traffic to
+    tier: backend # another label to select the pods to route traffic to
+  ports:
+    - protocol: TCP # protocol to use for the service
+      port: 80 # port to expose the service on(the outside world port)
+      targetPort: 8080 # port to forward traffic to on the pod (the internal container port)
+      # You can add multiple ports to the service if needed:
+#   - protocol: TCP 
+#     port: 443 
+#     targetPort: 8443 
+  type: LoadBalancer # type of service to create (LoadBalancer, NodePort, ClusterIP)

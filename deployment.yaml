@@ -17,5 +17,4 @@ spec: # specification of the deployment
       containers: # list of *containers* to run in the *pod*
         - name: second-node # name of the container
           image: ozalboher/kube-first-app # image to use for the container
-          ports:
-            - containerPort: 8080 # port on which the container will listen
+        
