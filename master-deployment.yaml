@@ -1,3 +1,25 @@
+## It is a good practice to have the service object FIRST and then the deployment object.
+## This is because objects are created in the order they are defined in the YAML file.
+## TOP to BOTTOM. And when you have a service object first, it is a "living thing" and 
+## it can dynamically discover the pods that are created later after, and then add them to the service.
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend # name of the service
+spec:
+  selector:
+    app: second-app # label to select the pods to route traffic to
+    tier: backend # another label to select the pods to route traffic to
+  ports:
+    - protocol: TCP # protocol to use for the service
+      port: 80 # port to expose the service on(the outside world port)
+      targetPort: 8080 # port to forward traffic to on the pod (the internal container port)
+      # You can add multiple ports to the service if needed:
+#   - protocol: TCP 
+#     port: 443 
+#     targetPort: 8443 
+  type: LoadBalancer # type of service to create (LoadBalancer, NodePort, ClusterIP)
+---
 apiVersion: apps/v1 # specifies the API version of the Kubernetes resource
 kind: Deployment # specifies the kind of resource
 metadata:
