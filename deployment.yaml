@@ -21,5 +21,13 @@ spec: # specification of the deployment
     spec: # specification for the individual pod to be created.
       containers: # list of *containers* to run in the *pod*
         - name: second-node # name of the container
-          image: ozalboher/kube-first-app # image to use for the container
+          image: ozalboher/kube-first-app:latest # image to use for the container(i added "latest" tag, so if changes are made to the image it will always pull the latest image)
+          imagePullPolicy: Always # always pull the image from the registry
+          livenessProbe:
+            httpGet:
+              path: / # on which path to check for liveness
+              port: 8080 # on which port to check for liveness
+            periodSeconds: 5 # how often to check for liveness
+            initialDelaySeconds: 5 # how long to wait before checking for liveness
+
         

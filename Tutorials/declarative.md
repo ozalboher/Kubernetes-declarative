@@ -30,7 +30,7 @@ selector:
  - Under *metadata* section of the deployment.yaml - Besides a name for the deployment - Adding label for the deployment, can be used to group multiple deployments together,
  - and then target ALL of them at once using this label.
  ```bash
- kubectl delete deployment -l group=groupA
+ kubectl delete deployments -l group=groupA # delete all deployments with the label group=groupA, or type "services" instead of "deployments" to delete all services with the label group=groupA.
  ```
 
 # Service object yaml file:(see service.yaml for the full code and explanation)
@@ -69,3 +69,5 @@ kubectl apply -f deployment.yaml # reapply the file to update the changes
 kubectl delete deployment <deployment-name> # replace <deployment-name> with the name of your deployment(e.g. "backend" as written in the name field under metadata section in the deployment.yaml file).
 kubectl delete service <service-name> # replace <service-name> with the name of your service(e.g. "backend" as written in the name field under metadata section in the service.yaml file).
 ```
+# livenessProbe: use this as a health check, if you want to check if the pod is alive or not. This is useful if you want to make sure that the pod is running and healthy. If the pod is not healthy, kubernetes will restart it automatically.
+
